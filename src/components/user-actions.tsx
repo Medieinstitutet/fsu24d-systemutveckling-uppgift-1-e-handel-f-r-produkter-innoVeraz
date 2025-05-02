@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
+import { LoginDialog } from "./login-dialog";
 
 export function UserActions() {
   return (
@@ -22,9 +23,7 @@ export function UserActions() {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="mt-2">
-          <DropdownMenuItem onSelect={() => console.log("Logga in")}>
-            Logga in
-          </DropdownMenuItem>
+          <LoginDialog />
           <DropdownMenuItem onSelect={() => console.log("Inställningar")}>
             Inställningar
           </DropdownMenuItem>
