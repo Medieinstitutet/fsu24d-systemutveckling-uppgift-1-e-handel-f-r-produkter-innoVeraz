@@ -12,8 +12,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
+
+// Lista över produktkategorier
+const productCategories = [
+  "Inomhusväxter",
+  "Utomhusväxter",
+  "Odla",
+];
 
 const productSchema = z.object({
   name: z.string().min(1, "Produktnamn krävs"),
@@ -79,7 +86,11 @@ export default function ProductForm() {
             <FormItem>
               <FormLabel>Beskrivning</FormLabel>
               <FormControl>
-                <textarea rows={3} {...field} />
+                <textarea
+                  className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  rows={3}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -121,7 +132,16 @@ export default function ProductForm() {
             <FormItem>
               <FormLabel>Kategori</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Select {...field} defaultValue="">
+                  <option value="" disabled>
+                    Välj kategori
+                  </option>
+                  {productCategories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>

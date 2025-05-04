@@ -7,7 +7,7 @@ export function Navbar() {
     <header className="w-full bg-[#eff0ef] text-[#3e443d] border-b">
       <div className="container flex items-center justify-between h-16">
         <nav className="flex gap-3 text-sm sm:text-base font-medium pl-3">
-          <Link href="/inomhusväxter" className="hover:text-[#f4748b]">
+          <Link href="/plants/indoor" className="hover:text-[#f4748b]">
             Inomhusväxter
           </Link>
           <Link href="/utomhus" className="hover:text-[#f4748b]">
