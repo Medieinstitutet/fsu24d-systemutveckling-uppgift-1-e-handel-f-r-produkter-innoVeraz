@@ -20,6 +20,9 @@ export function Navbar() {
           <Link href="/tjanster" className="hover:text-[#f4748b]">
             Tjänster
           </Link>
+          <Link href="/admin" className="hover:text-[#f4748b]">
+            Admin
+          </Link>
         </nav>
       </div>
     </header>
