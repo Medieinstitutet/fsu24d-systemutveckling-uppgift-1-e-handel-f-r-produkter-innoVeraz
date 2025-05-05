@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import AddToCartButton from '@/features/cart/components/add-to-cart-button';
 
 interface ProductCardProps {
   product: {
@@ -44,12 +44,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.stock > 0 ? `${product.stock} i lager` : 'Slut i lager'}
           </div>
         </div>
-        <Button 
+        <AddToCartButton 
+          product={product}
           className="w-full mt-4 bg-green-600 hover:bg-green-700" 
-          disabled={product.stock <= 0}
-        >
-          Lägg i varukorgen
-        </Button>
+        />
       </div>
     </div>
   );

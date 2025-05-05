@@ -1,4 +1,5 @@
-import ProductForm from "./components/product-upload-form";
+import ProductForm from "@/features/products/components/product-upload-form";
+
 
 export default function Products() {
   return (

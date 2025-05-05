@@ -5,7 +5,6 @@ import {
   IconArrowLeft,
   IconBrandTabler,
   IconSettings,
-  IconUsers,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -36,13 +35,6 @@ export default function Admin({ children }: { children: React.ReactNode }) {
       ),
     },
     {
-      label: "Användare",
-      href: "#",
-      icon: (
-        <IconUsers className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
-    {
       label: "Settings",
       href: "#",
       icon: (
@@ -63,8 +55,8 @@ export default function Admin({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "flex w-full flex-1 flex-col overflow-hidden  border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
-        "h-screen",
+        "flex w-full flex-1 flex-col overflow-hidden  border border-neutral-200  md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
+        "h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>

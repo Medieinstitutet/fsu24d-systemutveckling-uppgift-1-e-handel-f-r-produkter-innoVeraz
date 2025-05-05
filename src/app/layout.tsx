@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Chango} from "next/font/google";
+import { Geist, Chango } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
-
 import Logo from "@/components/logo";
 import { TopBar } from "@/components/top-bar";
+import { CartProvider } from "@/features/cart/context/cart-context";
+import CartIcon from "@/features/cart/components/cart-icon";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const chango = Chango({
   variable: "--font-chango",
   subsets: ["latin"],
-weight: "400",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -37,19 +33,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${chango.variable} antialiased  text-[#3e443d]`}
       >
-        <div className="bg-[#eff0ef]">
-          <TopBar />
-        <div className="flex justify-between pt-3 max-w-7xl mx-auto">
-          <div>
-
-          <Logo />
-          <Navbar />
+        <CartProvider>
+          <div className="bg-[#eff0ef]">
+            <TopBar />
+            <div className="max-w-7xl mx-auto pt-3 pr-6">
+              <div className="flex items-center justify-between">
+                <Logo />
+                <CartIcon />
+              </div>
+              <Navbar />
+            </div>
           </div>
-        </div>
-        </div>
-        <div className="">
-        {children}
-        </div>
+          <div className="">{children}</div>
+        </CartProvider>
       </body>
     </html>
   );

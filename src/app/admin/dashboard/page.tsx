@@ -6,7 +6,7 @@ export default function Dashboard() {
         {[...new Array(4)].map((i, idx) => (
           <div
             key={"first-array-demo-1" + idx}
-            className="h-20 w-full animate-pulse bg-gray-100 dark:bg-neutral-800"
+            className="h-20 w-full animate-pulse bg-white dark:bg-neutral-800"
           ></div>
         ))}
       </div>
@@ -14,7 +14,7 @@ export default function Dashboard() {
         {[...new Array(2)].map((i, idx) => (
           <div
             key={"second-array-demo-1" + idx}
-            className="h-full w-full animate-pulse bg-gray-100 dark:bg-neutral-800"
+            className="h-full w-full animate-pulse bg-white dark:bg-neutral-800"
           ></div>
         ))}
       </div>

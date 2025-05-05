@@ -1,21 +1,26 @@
 "use client";
 
-import React from "react";
-import { Form, useForm, Controller as FormField } from "react-hook-form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import {
+  Form,
+  FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import { z } from "zod";
 
 // Lista över produktkategorier
-const productCategories = ["Inomhusväxter", "Utomhusväxter", "Odla"];
+const productCategories = [
+  "Inomhusväxter",
+  "Utomhusväxter",
+  "Odla",
+];
 
 const productSchema = z.object({
   name: z.string().min(1, "Produktnamn krävs"),

@@ -18,7 +18,7 @@ if (!globalForMongo.mongoClientPromise) {
   const client = new MongoClient(uri, options);
   globalForMongo.mongoClientPromise = client.connect();
 }
-// Prevents creating a new client for every hot reload in development
+
 const clientPromise = globalForMongo.mongoClientPromise!;
 
 export default clientPromise;
