@@ -1,15 +1,39 @@
-export default function IndoorPlants() {
+import connectMongo from '@/lib/mongoose';
+import { getProductsByCategory } from '@/services/product-service';
+import ProductCard from '@/components/product-card';
+
+export const revalidate = 3600; // Revalidera sidan varje timme
+
+export default async function IndoorPlants() {
+  await connectMongo();
+  const indoorPlants = await getProductsByCategory('Inomhusväxter');
+
   return (
-    <div className="container mx-auto">
-      <h1 className="text-2xl font-bold text-center my-4">Inomhusväxter</h1>
-      <p className="text-center mb-8">
-        Välkommen till vår samling av inomhusväxter! Här hittar du allt från
-        lättskötta till mer utmanande växter som kan förvandla ditt hem till en
-        grön oas.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Här kan du lägga till komponenter för att visa växter */}
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-10 text-center">
+        <h1 className="text-3xl font-bold mb-4 text-green-700">Inomhusväxter</h1>
+        <p className="max-w-2xl mx-auto text-gray-600">
+          Välkommen till vår samling av inomhusväxter! Här hittar du allt från
+          lättskötta till mer utmanande växter som kan förvandla ditt hem till en
+          grön oas.
+        </p>
       </div>
+
+      {indoorPlants.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-lg text-gray-500">
+            Inga inomhusväxter hittades. Kom tillbaka snart, vi lägger till nya produkter regelbundet!
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {indoorPlants.map((plant) => (
+              <ProductCard key={plant._id.toString()} product={plant} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

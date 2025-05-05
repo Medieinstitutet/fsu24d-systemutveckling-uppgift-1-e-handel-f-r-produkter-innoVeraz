@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Chango} from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 
 import Logo from "@/components/logo";
+import { TopBar } from "@/components/top-bar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const chango = Chango({
+  variable: "--font-chango",
+  subsets: ["latin"],
+weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -28,14 +35,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${chango.variable} antialiased  text-[#3e443d]`}
       >
-        <div className="flex justify-between pt-3 bg-[#eff0ef]">
-          <Logo />
-        </div>
+        <div className="bg-[#eff0ef]">
+          <TopBar />
+        <div className="flex justify-between pt-3 max-w-7xl mx-auto">
+          <div>
 
-        <Navbar />
+          <Logo />
+          <Navbar />
+          </div>
+        </div>
+        </div>
+        <div className="">
         {children}
+        </div>
       </body>
     </html>
   );

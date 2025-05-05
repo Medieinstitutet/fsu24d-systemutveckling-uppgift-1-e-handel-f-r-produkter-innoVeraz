@@ -4,6 +4,10 @@ export async function getProducts() {
   return Product.find({});
 }
 
+export async function getProductsByCategory(category: string) {
+  return Product.find({ category });
+}
+
 export async function createProduct(productData: {
   name: string;
   description: string;
