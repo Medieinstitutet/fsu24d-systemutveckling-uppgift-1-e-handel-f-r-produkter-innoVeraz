@@ -1,57 +1,64 @@
 import { CartItem } from '../types';
-import connectMongo from '@/lib/mongoose';
-import CartModel from '@/features/cart/models/cart.model';
 
-// För att spara kundvagnen i databasen för inloggade användare
-export const saveCartToDb = async (customerId: string, items: CartItem[]) => {
-  try {
-    await connectMongo();
+// Dessa funktioner ska bara användas på serversidan
+// För att undvika klientsidans import av mongoose
+export const serverCartApi = {
+  // För att spara kundvagnen i databasen för inloggade användare
+  saveCartToDb: async (customerId: string, items: CartItem[]) => {
+    // Denna kod ska bara köras på serversidan, vi importerar dynamiskt här
+    const connectMongo = (await import('@/lib/mongoose')).default;
+    const CartModel = (await import('@/features/cart/models/cart.model')).default;
+    
+    try {
+      await connectMongo();
+      const cartItems = items.map(item => ({
+        product_id: item.product._id,
+        quantity: item.quantity,
+      }));
+      await CartModel.findOneAndUpdate(
+        { customer_id: customerId },
+        { 
+          customer_id: customerId, 
+          items: cartItems 
+        },
+        { upsert: true, new: true }
+      );
+      return true;
+    } catch (error) {
+      console.error('Error saving cart to database:', error);
+      return false;
+    }
+  },
 
-    const cartItems = items.map(item => ({
-      product_id: item.product._id,
-      quantity: item.quantity,
-    }));
-
-    await CartModel.findOneAndUpdate(
-      { customer_id: customerId },
-      { 
-        customer_id: customerId, 
-        items: cartItems 
-      },
-      { upsert: true, new: true }
-    );
-
-    return true;
-  } catch (error) {
-    console.error('Error saving cart to database:', error);
-    return false;
+  // För att hämta kundvagnen från databasen för inloggade användare
+  getCartFromDb: async (customerId: string) => {
+    // Denna kod ska bara köras på serversidan
+    const connectMongo = (await import('@/lib/mongoose')).default;
+    const CartModel = (await import('@/features/cart/models/cart.model')).default;
+    
+    try {
+      await connectMongo();
+      
+      const cart = await CartModel.findOne({ customer_id: customerId })
+        .populate('items.product_id');
+      
+      if (!cart) return { items: [] };
+      
+      // Formatera om datan för att matcha vår klient-side struktur
+      const formattedItems = cart.items.map((item: any) => ({
+        product: item.product_id,
+        quantity: item.quantity
+      }));
+      
+      return { items: formattedItems };
+    } catch (error) {
+      console.error('Error fetching cart from database:', error);
+      return { items: [] };
+    }
   }
 };
 
-// För att hämta kundvagnen från databasen för inloggade användare
-export const getCartFromDb = async (customerId: string) => {
-  try {
-    await connectMongo();
-    
-    const cart = await CartModel.findOne({ customer_id: customerId })
-      .populate('items.product_id');
-    
-    if (!cart) return { items: [] };
-    
-    // Formatera om datan för att matcha vår klient-side struktur
-    const formattedItems = cart.items.map((item: any) => ({
-      product: item.product_id,
-      quantity: item.quantity
-    }));
-    
-    return { items: formattedItems };
-  } catch (error) {
-    console.error('Error fetching cart from database:', error);
-    return { items: [] };
-  }
-};
-
-// Client-side API functions for cart
+// Client-side API functions for cart - säker att använda i webbläsaren
 const API_BASE_URL = '/api/cart';
 
 export const cartApi = {

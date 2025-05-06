@@ -6,11 +6,8 @@ import { connectMongo } from '@/lib/database';
 
 export async function GET(request: Request) {
   try {
-    // Connect to database
+console.log('försöker ansluta')
     await connectMongo();
-    
-    // Get user ID from auth token or cookie (future implementation)
-    // const userId = getUserIdFromRequest(request);
     
     // For now, return empty cart since we're using client-side storage
     return NextResponse.json([]);
@@ -25,10 +22,8 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    // Connect to database
     await connectMongo();
-    
-    // Get cart data from request body
+
     const cartData = await request.json();
     
     // This would save the cart to the database (future implementation)
