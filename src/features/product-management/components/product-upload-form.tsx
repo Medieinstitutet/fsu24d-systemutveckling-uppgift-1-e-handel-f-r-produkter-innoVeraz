@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 
-// Lista över produktkategorier
 const productCategories = [
   "Inomhusväxter",
   "Utomhusväxter",
@@ -31,7 +30,7 @@ const productSchema = z.object({
   image_url: z.string().url("Måste vara en giltig URL").optional(),
 });
 
-export default function ProductForm() {
+export default function ProductForm({ onProductSaved = () => {} }) {
   const form = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -54,6 +53,7 @@ export default function ProductForm() {
     if (res.ok) {
       alert("Produkt sparad!");
       form.reset();
+      onProductSaved();
     } else {
       alert("Något gick fel");
     }

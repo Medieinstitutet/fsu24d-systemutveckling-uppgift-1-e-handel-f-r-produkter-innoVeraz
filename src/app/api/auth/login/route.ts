@@ -4,13 +4,11 @@ import { authService } from '@/features/auth/services/auth-service';
 
 export async function POST(request: Request) {
   try {
-    // Connect to database
+
     await connectMongo();
     
-    // Get login credentials from request body
     const { email, password } = await request.json();
     
-    // Validate required fields
     if (!email || !password) {
       return NextResponse.json(
         { error: 'Email and password are required' },
@@ -18,10 +16,8 @@ export async function POST(request: Request) {
       );
     }
     
-    // Authenticate user
     const user = await authService.login(email, password);
     
-    // Return user data
     return NextResponse.json({
       success: true,
       user

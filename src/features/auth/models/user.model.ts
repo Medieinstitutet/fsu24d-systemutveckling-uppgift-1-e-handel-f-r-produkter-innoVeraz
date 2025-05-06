@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { connectMongo } from '@/lib/database';
 
-// Ensure database connection
+
 connectMongo();
 
 export interface UserDocument extends Document {

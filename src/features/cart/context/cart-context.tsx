@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { CartItem, CartContextType } from '../types';
 
-// Skapa kontext med defaultvärden
+
 export const CartContext = createContext<CartContextType>({
   items: [],
   addToCart: () => {},
@@ -18,7 +18,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [itemCount, setItemCount] = useState(0);
 
-  // Ladda cart från localStorage när komponenten monteras (endast klientsidan)
+
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem('cart');
@@ -32,7 +32,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  // Uppdatera localStorage när items ändras
   useEffect(() => {
     try {
       localStorage.setItem('cart', JSON.stringify(items));
@@ -51,12 +50,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const existingItemIndex = prevItems.findIndex(item => item.product._id === product._id);
       
       if (existingItemIndex >= 0) {
-        // Om produkten redan finns, uppdatera kvantiteten
+ 
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += quantity;
         return updatedItems;
       } else {
-        // Lägg till ny produkt i kundvagnen
+
         return [...prevItems, { product, quantity }];
       }
     });
@@ -104,5 +103,5 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Custom hook för enkel användning
+
 export const useCart = () => useContext(CartContext);

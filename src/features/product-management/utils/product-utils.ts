@@ -1,8 +1,5 @@
 import { Product } from '../types';
 
-/**
- * Sort products by different criteria
- */
 export function sortProducts(products: Product[], sortBy: 'price' | 'name' | 'newest', order: 'asc' | 'desc' = 'asc') {
   const sortedProducts = [...products];
   
@@ -29,9 +26,6 @@ export function sortProducts(products: Product[], sortBy: 'price' | 'name' | 'ne
   }
 }
 
-/**
- * Filter products by price range
- */
 export function filterByPriceRange(products: Product[], minPrice?: number, maxPrice?: number) {
   return products.filter(product => {
     if (minPrice !== undefined && product.price < minPrice) return false;
@@ -40,23 +34,14 @@ export function filterByPriceRange(products: Product[], minPrice?: number, maxPr
   });
 }
 
-/**
- * Format price with currency
- */
 export function formatPrice(price: number, currency = 'SEK') {
   return `${price.toFixed(2)} ${currency}`;
 }
 
-/**
- * Check if product is in stock
- */
 export function isInStock(product: Product) {
   return product.stock > 0;
 }
 
-/**
- * Get stock status display text
- */
 export function getStockStatus(product: Product) {
   if (product.stock <= 0) return 'Slut i lager';
   if (product.stock < 5) return 'Få kvar';

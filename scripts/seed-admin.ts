@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import clientPromise from "../src/lib/mongodb"; // OBS: relativ import från root, inte "@/lib"
+import clientPromise from "../src/lib/mongodb"; 
 
 async function createAdmin() {
   const client = await clientPromise;

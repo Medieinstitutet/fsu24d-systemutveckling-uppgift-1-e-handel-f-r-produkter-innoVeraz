@@ -5,28 +5,24 @@ import Customer from '@/features/customers/models/customer.model';
 
 export async function POST(request: Request) {
   try {
-    // Connect to database
+    
     await connectMongo();
     
-    // Get checkout data from request body
     const { items, customer } = await request.json();
     
-    // Calculate total
     const total = items.reduce(
       (sum: number, item: any) => sum + (item.product.price * item.quantity),
       0
     );
-    
-    // Skapa eller hämta kund
+
     let customerDoc;
     
-    // Om vi har en befintlig kund med samma e-post, använd den
     const existingCustomer = await Customer.findOne({ email: customer.email });
     
     if (existingCustomer) {
       customerDoc = existingCustomer;
     } else {
-      // Skapa en ny kund med rätt struktur enligt modellen
+      
       const [firstname, ...lastnameParts] = customer.name.split(' ');
       const lastname = lastnameParts.join(' ') || ''; 
       
@@ -46,7 +42,6 @@ export async function POST(request: Request) {
       customerDoc = await newCustomer.save();
     }
     
-    // Create order with reference to customer
     const order = new Order({
       customer: {
         name: customer.name,

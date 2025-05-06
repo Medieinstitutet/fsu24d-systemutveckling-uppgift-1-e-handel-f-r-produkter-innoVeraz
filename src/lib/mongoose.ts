@@ -21,10 +21,10 @@ async function connectMongo() {
   if (!cached.promise) {
     const options = {
       dbName: 'dbwebbshop',
-      // Uppdaterade SSL-inställningar för att lösa TLS-problem
+      // Uupdated to use the new MongoDB driver options
       ssl: true,
       tls: true,
-      tlsInsecure: true, // I utvecklingssyfte, ta bort i produktion
+      tlsInsecure: true, // remove in production
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, options)

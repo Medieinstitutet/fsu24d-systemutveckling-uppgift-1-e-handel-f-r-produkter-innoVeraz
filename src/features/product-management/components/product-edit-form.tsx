@@ -1,21 +1,25 @@
 "use client";
-
-import React from "react";
-import { Form, useForm, Controller as FormField } from "react-hook-form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
 import {
+  Form,
+  FormField,
   FormItem,
   FormLabel,
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
-import { z } from "zod";
+import { useEffect } from "react";
 
-// Lista över produktkategorier
-const productCategories = ["Inomhusväxter", "Utomhusväxter", "Odla"];
+const productCategories = [
+  "Inomhusväxter",
+  "Utomhusväxter",
+  "Odla",
+];
 
 const productSchema = z.object({
   name: z.string().min(1, "Produktnamn krävs"),
@@ -26,31 +30,65 @@ const productSchema = z.object({
   image_url: z.string().url("Måste vara en giltig URL").optional(),
 });
 
-export default function ProductForm() {
+interface Product {
+  _id: string;
+  name: string;
+  description?: string;
+  price: number;
+  stock: number;
+  category?: string;
+  image_url?: string;
+}
+
+export default function ProductEditForm({
+  product,
+  onSaved = () => {},
+  onCancel = () => {},
+}: {
+  product: Product;
+  onSaved?: () => void;
+  onCancel?: () => void;
+}) {
   const form = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      stock: 0,
-      category: "",
-      image_url: "",
+      name: product.name || "",
+      description: product.description || "",
+      price: product.price || 0,
+      stock: product.stock || 0,
+      category: product.category || "",
+      image_url: product.image_url || "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof productSchema>) => {
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+  useEffect(() => {
+    form.reset({
+      name: product.name || "",
+      description: product.description || "",
+      price: product.price || 0,
+      stock: product.stock || 0,
+      category: product.category || "",
+      image_url: product.image_url || "",
     });
+  }, [product, form]);
 
-    if (res.ok) {
-      alert("Produkt sparad!");
-      form.reset();
-    } else {
-      alert("Något gick fel");
+  const onSubmit = async (values: z.infer<typeof productSchema>) => {
+    try {
+      const res = await fetch(`/api/products/${product._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (res.ok) {
+        alert("Produkt uppdaterad!");
+        onSaved();
+      } else {
+        alert("Något gick fel vid uppdatering");
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("Ett fel uppstod vid uppdatering av produkten");
     }
   };
 
@@ -73,7 +111,6 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
         <FormField
           name="description"
           control={form.control}
@@ -91,7 +128,6 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
         <FormField
           name="price"
           control={form.control}
@@ -105,7 +141,6 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
         <FormField
           name="stock"
           control={form.control}
@@ -119,7 +154,6 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
         <FormField
           name="category"
           control={form.control}
@@ -127,7 +161,7 @@ export default function ProductForm() {
             <FormItem>
               <FormLabel>Kategori</FormLabel>
               <FormControl>
-                <Select {...field} defaultValue="">
+                <Select {...field} defaultValue={field.value}>
                   <option value="" disabled>
                     Välj kategori
                   </option>
@@ -142,7 +176,6 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
         <FormField
           name="image_url"
           control={form.control}
@@ -156,8 +189,12 @@ export default function ProductForm() {
             </FormItem>
           )}
         />
-
-        <Button type="submit">Spara produkt</Button>
+        <div className="flex space-x-2">
+          <Button type="submit">Spara ändringar</Button>
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Avbryt
+          </Button>
+        </div>
       </form>
     </Form>
   );

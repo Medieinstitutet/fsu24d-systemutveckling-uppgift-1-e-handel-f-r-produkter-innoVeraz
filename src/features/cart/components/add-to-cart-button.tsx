@@ -18,7 +18,6 @@ export default function AddToCartButton({ product, className = '' }: AddToCartBu
     setIsAdding(true);
     addToCart(product, 1);
     
-    // Visuell feedback
     setTimeout(() => {
       setIsAdding(false);
     }, 500);

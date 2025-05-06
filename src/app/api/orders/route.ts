@@ -6,9 +6,9 @@ dotenv.config();
 
 import Order from '@/features/orders/models/order.model';
 
-import '@/features/products/models/product.model';
+import '@/features/product-management/models/product.model';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
 
     const MONGODB_URI = process.env.MONGODB_URI as string;
@@ -22,12 +22,11 @@ export async function GET(request: Request) {
     await mongoose.connect(MONGODB_URI, {
       dbName: 'dbwebbshop',
       tls: true,
-      tlsAllowInvalidCertificates: true, // För utveckling, ta bort i produktion
+      tlsAllowInvalidCertificates: true, // remove in production
     });
     
     console.log('Mongoose connection established successfully');
     
-
     const orders = await Order.find({})
       .populate('items.product')
       .sort({ createdAt: -1 }) 

@@ -4,13 +4,13 @@ import { authService } from '@/features/auth/services/auth-service';
 
 export async function POST(request: Request) {
   try {
-    // Connect to database
+
     await connectMongo();
     
-    // Get registration data from request body
+
     const userData = await request.json();
     
-    // Validate required fields
+
     if (!userData.email || !userData.password || !userData.name) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -18,7 +18,6 @@ export async function POST(request: Request) {
       );
     }
     
-    // Register new user
     const user = await authService.register(userData);
     
     return NextResponse.json(

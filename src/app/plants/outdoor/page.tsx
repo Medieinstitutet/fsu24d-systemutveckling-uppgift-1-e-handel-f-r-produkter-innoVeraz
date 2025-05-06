@@ -1,6 +1,6 @@
 import connectMongo from "@/lib/mongoose";
-import ProductCard from "@/features/products/components/product-card";
-import { productService } from "@/features/products/services/product-service";
+import ProductCard from "@/features/product-management/components/product-card";
+import { productService } from "@/features/product-management/services/product-service";
 
 export const revalidate = 3600;
 

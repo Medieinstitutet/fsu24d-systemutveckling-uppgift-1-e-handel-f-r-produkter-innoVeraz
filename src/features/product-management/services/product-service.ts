@@ -1,5 +1,5 @@
 // Backend product service
-import Product from '@/features/products/models/product.model';
+import Product from '@/features/product-management/models/product.model';
 import type { Product as ProductType } from '../types';
 
 export const productService = {

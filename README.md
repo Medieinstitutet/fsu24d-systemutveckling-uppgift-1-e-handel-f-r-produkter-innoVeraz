@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-commerce Platform for Plant Products
+
+A complete e-commerce platform developed with Next.js for selling plant products. The project includes both a customer portal and an administrator panel for product management.
+
+## Features
+
+### Customer Portal
+- Product display categorized by indoor plants, outdoor plants, and gardening products
+- Shopping cart functionality
+- Checkout process
+
+### Administrator Panel
+- **Product Management**
+  - List all products
+  - Search for products
+  - Add new products
+  - Edit existing products
+  - Delete products
+- Order review and management
+
+## Technical Stack
+
+- **Frontend:** Next.js, React, TailwindCSS
+- **Backend:** Next.js API routes
+- **Database:** MongoDB with Mongoose
+- **Form Handling:** React Hook Form with Zod validation
+- **UI Components:** shadcn/ui
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (version 16.x or later)
+- npm or yarn
+- MongoDB (local or cloud-based)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the project:
+   ```bash
+   git clone <repository-url>
+   cd fsu24d-systemutveckling-uppgift-1-e-handel-for-produkter-innoveraz
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-## Learn More
+3. Create a `.env.local` file in the project root with the following content:
+   ```
+   MONGODB_URI=mongodb://your-mongodb-uri
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start the development server:
+   ```bash
+   npm run dev
+   # or 
+   yarn dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the customer portal.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Generate Administrator Account
 
-## Deploy on Vercel
+To access the admin panel, you need an administrator account.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Run the seed script to create an admin account:
+   ```bash
+   npm run seed-admin
+   # or
+   yarn seed-admin
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Log in with the generated credentials at [http://localhost:3000/admin](http://localhost:3000/admin)
+
+## Usage
+
+### Customer Portal
+
+1. Visit the homepage at [http://localhost:3000](http://localhost:3000) to see available product categories
+2. Click on a product category to view products
+3. Add products to your cart by clicking "Add to Cart" on the products
+4. Click on the cart icon to view your cart and proceed to checkout
+
+### Admin Panel
+
+1. Log in at [http://localhost:3000/admin](http://localhost:3000/admin)
+2. Go to Product Management via the menu to manage products:
+   - **Product List** - View, search, and delete products
+   - **Add New Product** - Create new products
+   - **Edit Product** - Appears when you click "Edit" on a product
+
+3. Manage orders via Order Management in the menu
+
+## Project Structure
+
+- `/src/app` - Next.js App Router structure
+- `/src/components` - Reusable UI components
+- `/src/features` - Feature-oriented modules
+  - `/auth` - Authentication and users
+  - `/cart` - Shopping cart functionality
+  - `/products` - Product-related components and functions
+  - `/orders` - Order management
+- `/src/lib` - Helper functions, database connection, etc.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)

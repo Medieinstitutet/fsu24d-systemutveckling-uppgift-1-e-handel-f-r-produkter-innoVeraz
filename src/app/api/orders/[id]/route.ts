@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { connectMongo } from '@/lib/database';
 import Order from '@/features/orders/models/order.model';
 
-// GET en specifik order med ID
+
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
@@ -29,7 +29,6 @@ export async function GET(
   }
 }
 
-// PATCH för att uppdatera orderstatus
 export async function PATCH(
   request: Request,
   { params }: { params: { id: string } }
@@ -38,8 +37,7 @@ export async function PATCH(
     await connectMongo();
     
     const { status } = await request.json();
-    
-    // Kontrollera att statusen är giltig
+
     const validStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
     if (!validStatuses.includes(status)) {
       return NextResponse.json(

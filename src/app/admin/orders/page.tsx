@@ -37,7 +37,6 @@ export default function Orders() {
   const [error, setError] = useState<string | null>(null);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
-  // Hämta alla ordrar när sidan laddas
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -60,7 +59,7 @@ export default function Orders() {
     fetchOrders();
   }, []);
 
-  // Funktion för att uppdatera orderstatus
+
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
       const response = await fetch(`/api/orders/${orderId}`, {
@@ -75,7 +74,6 @@ export default function Orders() {
         throw new Error('Failed to update order status');
       }
       
-      // Uppdatera listan med ordrar i UI:t
       setOrders(prevOrders => 
         prevOrders.map(order => 
           order._id === orderId 
@@ -88,7 +86,6 @@ export default function Orders() {
     }
   };
 
-  // Visa orderdetaljer
   const toggleOrderDetails = (orderId: string) => {
     if (expandedOrderId === orderId) {
       setExpandedOrderId(null);
@@ -97,7 +94,6 @@ export default function Orders() {
     }
   };
 
-  // Formatera datum
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('sv-SE', {

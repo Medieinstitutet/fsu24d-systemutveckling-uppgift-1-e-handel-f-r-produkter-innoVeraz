@@ -1,6 +1,6 @@
 import connectMongo from "@/lib/mongoose";
-import ProductCard from "@/features/products/components/product-card";
-import { productService } from "@/features/products/services/product-service";
+import ProductCard from "@/features/product-management/components/product-card";
+import { productService } from "@/features/product-management/services/product-service";
 
 export const revalidate = 3600;
 
@@ -20,19 +20,19 @@ export default async function IndoorPlants() {
   }));
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold mb-4 text-green-700">
+    <div className="container max-w-7xl mx-auto px-4 py-8">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold mb-4">
           Inomhusväxter
         </h1>
-        <p className="max-w-2xl mx-auto text-gray-600">
+        <p className="max-w-2xl text-gray-600">
           Välkommen till vår samling av inomhusväxter! Här hittar du allt från
           lättskötta till mer utmanande växter som kan förvandla ditt hem till
           en grön oas.
         </p>
       </div>
       {indoorPlants.length === 0 ? (
-        <div className="text-center py-10">
+        <div className=" py-10">
           <p className="text-lg text-gray-500">
             Inga inomhusväxter hittades. Kom tillbaka snart, vi lägger till nya
             produkter regelbundet!
