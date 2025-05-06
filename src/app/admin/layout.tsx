@@ -6,10 +6,9 @@ import {
   IconBrandTabler,
   IconSettings,
 } from "@tabler/icons-react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { ClipboardList, Package, Sprout } from "lucide-react";
+import { ClipboardList, Package } from "lucide-react";
 
 export default function Admin({ children }: { children: React.ReactNode }) {
   const links = [
@@ -55,15 +54,16 @@ export default function Admin({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "flex w-full flex-1 flex-col overflow-hidden  border border-neutral-200  md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
+        "flex w-full flex-1 flex-col overflow-hidden  border border-neutral-200  md:flex-row dark:border-neutral-700 dark:bg-neutral-800 text-[#3e443d]",
         "h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
-        <SidebarBody className="h-full justify-between gap-10">
+        <SidebarBody className="h-full justify-between gap-10 text-[#3e443d]">
           <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
-            {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
+    
+            <LogoIcon />
+            <div className="mt-8 flex flex-col gap-2 text-[#3e443d]">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
@@ -72,13 +72,13 @@ export default function Admin({ children }: { children: React.ReactNode }) {
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: "Admin",
                 href: "#",
                 icon: (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 shrink-0 rounded-full"
+                    src="/user-avatar.png"
+                    className="h-7 w-7 shrink-0 rounded-full text-[#3e443d]"
                     width={50}
                     height={50}
                     alt="Avatar"
@@ -93,23 +93,6 @@ export default function Admin({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-export const Logo = () => {
-  return (
-    <Link
-      href="/"
-      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black dark:text-white"
-    >
-      <Sprout className="h-6 w-6 text-green-800 dark:text-green-400" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-medium whitespace-pre"
-      >
-        Admin Panel
-      </motion.span>
-    </Link>
-  );
-};
 
 export const LogoIcon = () => {
   return (
@@ -117,7 +100,7 @@ export const LogoIcon = () => {
       href="/"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black dark:text-white"
     >
-      <Sprout className="h-6 w-6 text-green-600 dark:text-green-400" />
+      <h3 className="text-[#e48f4a] font-chango">Plant Buds</h3>
     </Link>
   );
 };

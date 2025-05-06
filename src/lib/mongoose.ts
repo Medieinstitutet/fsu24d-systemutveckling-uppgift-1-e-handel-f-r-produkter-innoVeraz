@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-// Läs in miljövariabler från .env
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI as string;

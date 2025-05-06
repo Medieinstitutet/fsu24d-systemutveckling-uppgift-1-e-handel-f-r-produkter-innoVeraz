@@ -44,7 +44,7 @@ export default function RootLayout({
               <Navbar />
             </div>
           </div>
-          <div className="">{children}</div>
+          <div className="text-[#3e443d]">{children}</div>
         </CartProvider>
       </body>
     </html>
